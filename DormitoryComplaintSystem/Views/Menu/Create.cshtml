@@ -1,0 +1,42 @@
+@model DormitoryComplaintSystem.Models.Menu
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-4 shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Add New Menu Item</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <input asp-for="Date" type="date" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Soup</label>
+                        <input asp-for="Soup" class="form-control" placeholder="Ex: Mercimek Çorbası" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Main Dish</label>
+                        <input asp-for="MainDish" class="form-control" placeholder="Ex: Karnıyarık" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Side Dish</label>
+                        <input asp-for="SideDish" class="form-control" placeholder="Örn: Pirinç Pilavı" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Desert / Fruit</label>
+                        <input asp-for="Dessert" class="form-control" placeholder="Örn: Kemalpaşa" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

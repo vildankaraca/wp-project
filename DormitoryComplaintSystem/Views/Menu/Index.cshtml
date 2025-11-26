@@ -1,0 +1,45 @@
+@model List<DormitoryComplaintSystem.Models.Menu>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Food Menu List</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-success">+ Add New Menu</a>
+        }
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="bg-warning text-dark">
+            <tr>
+                <th>Date</th>
+                <th>Soup</th>
+                <th>Main Dish</th>
+                <th>Side Dish</th>
+                <th>Desert / Fruit</th>
+                @if (User.IsInRole("Admin")) { <th>Process</th> }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="fw-bold">@item.Date.ToShortDateString()</td>
+                    <td>@item.Soup</td>
+                    <td>@item.MainDish</td>
+                    <td>@item.SideDish</td>
+                    <td>@item.Dessert</td>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Are you sure you want to delete it?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

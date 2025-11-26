@@ -1,0 +1,99 @@
+﻿@model DormitoryComplaintSystem.Models.Menu
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center bg-light p-5 rounded-3 mb-5 border">
+    <h1 class="display-5 fw-bold text-primary">Welcome to the Dormitory System!</h1>
+    <p class="fs-4 text-muted">Manage your dormitory life, check daily meals, and report issues easily.</p>
+    
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="mt-4">
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg px-4 me-2">Log In</a>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Sign Up</a>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-warning text-dark fw-bold text-center">
+                🍽️ Menu of the Day (@DateTime.Now.ToString("dd.MM.yyyy"))
+            </div>
+            <div class="card-body">
+                @if (Model != null)
+                {
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>🥣 Soup</span>
+                            <span class="fw-bold">@Model.Soup</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>🍲 Main Dish</span>
+                            <span class="fw-bold text-success">@Model.MainDish</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>🍚 Side Dish</span>
+                            <span class="fw-bold">@Model.SideDish</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>🍰 Dessert/Fruit</span>
+                            <span class="fw-bold">@Model.Dessert</span>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <div class="text-center py-4 text-muted">
+                        <p>No menu has been entered for today yet.</p>
+                        <small>Check back later!</small>
+                    </div>
+                }
+            </div>
+            <div class="card-footer text-center bg-white border-0 pb-3">
+                <a asp-controller="Menu" asp-action="Index" class="btn btn-outline-dark btn-sm">See Full Weekly Menu</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-info text-white fw-bold text-center">
+                🚀 Quick Actions
+            </div>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                
+                @if (User.IsInRole("Student"))
+                {
+                    <p class="text-center mb-4">Have a problem in your room?</p>
+                    <a asp-controller="Student" asp-action="Create" class="btn btn-danger btn-lg w-75 mb-3">
+                        ⚠️ Report a Complaint
+                    </a>
+                    <a asp-controller="Student" asp-action="Index" class="btn btn-outline-secondary w-75">
+                        📂 My Past Complaints
+                    </a>
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    <p class="text-center mb-4">Management Dashboard</p>
+                    <a asp-controller="Admin" asp-action="DormManagementPanel" class="btn btn-danger btn-lg w-75 mb-3">
+                        🛠️ Manage Complaints
+                    </a>
+                    <a asp-controller="Menu" asp-action="Create" class="btn btn-success w-75">
+                        ➕ Add New Menu
+                    </a>
+                }
+                else
+                {
+                    <div class="text-center text-muted">
+                        <p>Please log in to report complaints or manage the system.</p>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Login Icon" width="100" style="opacity: 0.5;">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
