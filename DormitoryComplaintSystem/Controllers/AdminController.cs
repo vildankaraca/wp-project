@@ -1,19 +1,24 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; 
+using Microsoft.AspNetCore.Identity;
 using DormitoryComplaintSystem.Data;
+using DormitoryComplaintSystem.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DormitoryComplaintSystem.Controllers
 {
-    [Authorize] // Normalde buraya Roles="Admin" eklenir ama şimdilik herkes test edebilsin diye sadece giriş şartı koyuyoruz.
+    [Authorize(Roles = "Admin")] 
     public class AdminController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminController(AppDbContext context)
+        public AdminController(AppDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult DormManagementPanel()
@@ -37,6 +42,23 @@ namespace DormitoryComplaintSystem.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("DormManagementPanel");
+        }
+
+        public async Task<IActionResult> AllStudentsList()
+        {
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+            return View(students);
+        }
+
+        public async Task<IActionResult> StudentDetails(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return NotFound();
+
+            var student = await _userManager.FindByIdAsync(id);
+
+            if (student == null) return NotFound();
+
+            return View(student);
         }
     }
 }

@@ -1,0 +1,41 @@
+@model DormitoryComplaintSystem.Models.ApplicationUser
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4>Student's Informations</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Student Icon" width="100" class="mb-3">
+                        <h3>@Model.FullName</h3>
+                        <p class="text-muted">@Model.Email</p>
+                    </div>
+                    
+                    <hr />
+
+                    <div class="row mt-3">
+                        <div class="col-6 mb-3">
+                            <label class="fw-bold text-secondary">Room Number</label>
+                            <div class="fs-5">@Model.RoomNumber</div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="fw-bold text-secondary">Bed Number</label>
+                            <div class="fs-5">@Model.BedNumber</div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="fw-bold text-secondary">User ID</label>
+                            <div class="small text-muted">@Model.Id</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <a asp-action="AllStudentsList" class="btn btn-secondary">Back to the List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

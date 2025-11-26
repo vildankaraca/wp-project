@@ -326,3 +326,4 @@ C:\Users\Victus\OneDrive\Masaüstü\wp project\DormitoryComplaintSystem\obj\Debu
 C:\Users\Victus\OneDrive\Masaüstü\wp project\DormitoryComplaintSystem\obj\Debug\net9.0\DormitoryComplaintSystem.pdb
 C:\Users\Victus\OneDrive\Masaüstü\wp project\DormitoryComplaintSystem\obj\Debug\net9.0\DormitoryComplaintSystem.genruntimeconfig.cache
 C:\Users\Victus\OneDrive\Masaüstü\wp project\DormitoryComplaintSystem\obj\Debug\net9.0\ref\DormitoryComplaintSystem.dll
+C:\Users\Victus\OneDrive\Masaüstü\wp project\DormitoryComplaintSystem\obj\Debug\net9.0\DormitoryComplaintSystem.sourcelink.json
