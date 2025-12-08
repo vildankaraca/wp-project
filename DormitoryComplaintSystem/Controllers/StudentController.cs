@@ -117,7 +117,7 @@ public async Task<IActionResult> Edit(Complaint c)
             }
 
             // 4. Düzenlenme saatini güncelle
-            dbRecord.EditedAt = DateTime.Now;    
+            dbRecord.EditedAt = DateTime.Now;  
 
             // 5. Kaydet ve çık
             await _context.SaveChangesAsync();
