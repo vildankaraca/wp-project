@@ -59,7 +59,6 @@ namespace DormitoryComplaintSystem.Data
                             BedNumber = "-"
                         };
 
-                        // Password: Admin123!
                         var result = await userManager.CreateAsync(adminUser, "Admin123!");
                         if (result.Succeeded)
                         {
@@ -82,7 +81,6 @@ namespace DormitoryComplaintSystem.Data
                             BedNumber = i % 2 == 0 ? "B" : "A"
                         };
 
-                        // Password: Student123!
                         var result = await userManager.CreateAsync(studentUser, "Student123!");
                         if (result.Succeeded)
                         {
@@ -91,24 +89,7 @@ namespace DormitoryComplaintSystem.Data
                     }
                 }
 
-                if (!context.Menus.Any())
-                {
-                    var menus = new List<Menu>();
-                    for (int i = 0; i < 14; i++)
-                    {
-                        menus.Add(new Menu
-                        {
-                            Date = DateTime.Today.AddDays(i),
-                            Soup = "Mercimek Çorbası",
-                            MainDish = i % 2 == 0 ? "Kuru Fasulye" : "İzmir Köfte",
-                            SideDish = i % 2 == 0 ? "Pirinç Pilavı" : "Makarna",
-                            Dessert = i % 2 == 0 ? "Sütlaç" : "Kemalpaşa"
-                        });
-                    }
-                    context.Menus.AddRange(menus);
-                    context.SaveChanges();
-                }
             }
-        }
-    }
+        }
+    }
 }

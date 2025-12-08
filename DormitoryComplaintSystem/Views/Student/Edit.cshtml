@@ -1,0 +1,30 @@
+@model DormitoryComplaintSystem.Models.Complaint
+
+@{
+    ViewData["Title"] = "Edit Complaint";
+}
+
+<div class="container mt-5">
+    <h2>Edit Complaint</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Title" class="control-label fw-bold">Title</label>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="control-label fw-bold">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

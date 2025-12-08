@@ -75,5 +75,55 @@ namespace DormitoryComplaintSystem.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpGet]
+public async Task<IActionResult> Edit(int id)
+{
+    var complaint = await _context.Complaints.FindAsync(id);
+
+    // Şikayet yoksa veya ÇÖZÜLMÜŞSE (Resolved) düzenleme sayfasına sokma
+    if (complaint == null || complaint.IsResolved) 
+    {
+        return RedirectToAction("Index");
+    }
+
+    return View(complaint);
+}
+
+// 2. DÜZENLEMEYİ KAYDEDEN METOD (POST)
+[HttpPost]
+[ValidateAntiForgeryToken]
+// DİKKAT: Buradaki "Title" ve "Description" isimleri, Edit.cshtml içindeki asp-for isimleriyle AYNI olmalı.
+public async Task<IActionResult> Edit(Complaint c)
+        {
+            // 1. Veritabanındaki asıl kaydı buluyoruz
+            var dbRecord = await _context.Complaints.FindAsync(c.Id);
+
+            // Kayıt yoksa veya çözülmüşse işlem yapma
+            if (dbRecord == null || dbRecord.IsResolved) 
+            {
+                return RedirectToAction("Index");
+            }
+
+            // 2. Formdan gelen Title (Başlık) boş değilse güncelle
+            if (!string.IsNullOrEmpty(c.Title)) 
+            {
+                dbRecord.Title = c.Title; 
+            }
+            
+            // 3. Formdan gelen Description (Açıklama) boş değilse güncelle
+            if (!string.IsNullOrEmpty(c.Description))
+            {
+                dbRecord.Description = c.Description;
+            }
+
+            // 4. Düzenlenme saatini güncelle
+            dbRecord.EditedAt = DateTime.Now;    
+
+            // 5. Kaydet ve çık
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        
     }
 }

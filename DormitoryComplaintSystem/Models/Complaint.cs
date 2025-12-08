@@ -14,6 +14,9 @@ namespace DormitoryComplaintSystem.Models
         public string Description { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public DateTime? EditedAt { get; set; }
+        
         public bool IsResolved { get; set; } = false; // İdare çözdü mü?
 
         // Hangi öğrenci yazdı?
