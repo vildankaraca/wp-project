@@ -75,5 +75,56 @@ namespace DormitoryComplaintSystem.Controllers
             }
             return RedirectToAction("Index");
         }
+
+[HttpGet]
+public async Task<IActionResult> Edit(int id)
+{
+    var complaint = await _context.Complaints.FindAsync(id);
+
+   
+    if (complaint == null || complaint.IsResolved) 
+    {
+        return RedirectToAction("Index");
+    }
+
+    return View(complaint);
+}
+
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+
+public async Task<IActionResult> Edit(Complaint c)
+        {
+          
+            var dbRecord = await _context.Complaints.FindAsync(c.Id);
+
+          
+            if (dbRecord == null || dbRecord.IsResolved) 
+            {
+                return RedirectToAction("Index");
+            }
+
+        
+            if (!string.IsNullOrEmpty(c.Title)) 
+            {
+                dbRecord.Title = c.Title; 
+            }
+            
+          
+            if (!string.IsNullOrEmpty(c.Description))
+            {
+                dbRecord.Description = c.Description;
+            }
+
+        
+            dbRecord.EditedAt = DateTime.Now;  
+
+         
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        
     }
 }

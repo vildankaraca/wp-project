@@ -2,10 +2,10 @@
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Food Menu List</h2>
+        <h2>Menu (Next 14 Days)</h2>
         @if (User.IsInRole("Admin"))
         {
-            <a asp-action="Create" class="btn btn-success">+ Add New Menu</a>
+            <a asp-action="Create" class="btn btn-success">+ Add Menu</a>
         }
     </div>
 
@@ -17,14 +17,25 @@
                 <th>Main Dish</th>
                 <th>Side Dish</th>
                 <th>Desert / Fruit</th>
-                @if (User.IsInRole("Admin")) { <th>Process</th> }
+                @if (User.IsInRole("Admin"))
+                {
+                    <th style="width: 180px;">Admin Actions</th>
+                }
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td class="fw-bold">@item.Date.ToShortDateString()</td>
+                bool isCustom = item.Id != 0;
+
+                <tr class="@(isCustom ? "table-info" : "")">
+                    <td class="fw-bold">
+                        @item.Date.ToString("dd.MM.yyyy - dddd")
+                        @if (isCustom)
+                        {
+                            <span class="badge bg-primary ms-1">Custom</span>
+                        }
+                    </td>
                     <td>@item.Soup</td>
                     <td>@item.MainDish</td>
                     <td>@item.SideDish</td>
@@ -32,14 +43,25 @@
                     
                     @if (User.IsInRole("Admin"))
                     {
-                        <td>
-                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Are you sure you want to delete it?');">
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
+                        <td class="text-center">
+                            @if (isCustom)
+                            {
+                                <form asp-action="Delete" asp-route-id="@item.Id" method="post" >
+                                    <button type="submit" class="btn btn-sm btn-danger w-100">
+                                        Delete
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a asp-action="Create" asp-route-date="@item.Date.ToString("yyyy-MM-dd")" class="btn btn-sm btn-success w-100">
+                                    Create
+                                </a>
+                            }
                         </td>
                     }
                 </tr>
             }
         </tbody>
-    </table>
+    </table>
 </div>

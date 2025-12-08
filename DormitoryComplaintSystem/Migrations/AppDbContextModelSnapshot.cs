@@ -114,6 +114,9 @@ namespace DormitoryComplaintSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("EditedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsResolved")
                         .HasColumnType("bit");
 
