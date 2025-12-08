@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DormitoryComplaintSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1698a10c7792fce67311818e62868116abca129c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac7d5a58bd1d7dd6d189c2eb3458d7e872d5f132")]
 [assembly: System.Reflection.AssemblyProductAttribute("DormitoryComplaintSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DormitoryComplaintSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
