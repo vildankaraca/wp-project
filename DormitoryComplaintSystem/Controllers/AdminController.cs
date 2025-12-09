@@ -43,13 +43,16 @@ namespace DormitoryComplaintSystem.Controllers
             }
             return RedirectToAction("DormManagementPanel");
         }
+public async Task<IActionResult> AllStudentsList()
+{
+   
+    var students = await _userManager.GetUsersInRoleAsync("Student");
 
-        public async Task<IActionResult> AllStudentsList()
-        {
-            var students = await _userManager.GetUsersInRoleAsync("Student");
-            return View(students);
-        }
+    var sortedStudents = students.OrderBy(s => s.RoomNumber).ToList();
 
+   
+    return View(sortedStudents);
+}
         public async Task<IActionResult> StudentDetails(string id)
         {
             if (string.IsNullOrEmpty(id)) return NotFound();
