@@ -7,7 +7,7 @@ This project is an **ASP.NET Core MVC** web application developed to facilitate 
 
 - [Basic Flow](#basic-flow)
 - [Features](#features)
-- [Screenshots](#screenshots)
+- [Screenshots](#example-screenshots)
 - [Project Requirements and Compliance](#project-requirements-and-compliance-course-requirements)
 - [Prerequisites](#prerequisites)
 - [Quick Start](#quick-start)
@@ -38,15 +38,23 @@ This project is an **ASP.NET Core MVC** web application developed to facilitate 
 
 ---
 
-## Screenshots
+## Example Screenshots
 
-| Login Screen | Admin Panel |
-| :---: | :---: |
-| ![Login Screen](Screenshots/login-screen.png) | ![Admin Panel](Screenshots/admin-panel.png) |
+* **Login Screen**
+  
+  <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/a05d9e9e-76a6-43c2-99d1-e1343100a591" />
 
-| Student Complaint Screen | Dining Menu |
-| :---: | :---: |
-| ![Complaint Screen](Screenshots/complaint-screen.png) | ![Dining Menu](Screenshots/menu-screen.png) |
+* **Admin Panel**
+  
+<img width="1920" height="1080" alt="Ekran görüntüsü 2025-12-09 010120" src="https://github.com/user-attachments/assets/e164bb44-ba5f-4638-92c0-d990837a972c" />
+
+
+* **Student Complaint  Screen** 
+
+<img width="1920" height="1080" alt="Ekran görüntüsü 2025-12-09 005856" src="https://github.com/user-attachments/assets/7e76b424-2025-460f-8c94-26a2f08fc9e0" />
+
+* **Menu**
+<img width="1920" height="1080" alt="Ekran görüntüsü 2025-12-09 002733" src="https://github.com/user-attachments/assets/61e6d9cb-81ba-4412-bddd-e72c0aee9830" />
 
 ---
 
@@ -182,13 +190,21 @@ Bu proje, yurt yönetimi ve öğrenciler arasındaki iletişimi kolaylaştırmak
 
 ##  Ekran Görüntüleri (Screenshots)
 
-| Giriş Ekranı | Admin Paneli |
-| :---: | :---: |
-| ![Giriş Ekranı](Screenshots/login-screen.png) | ![Admin Paneli](Screenshots/admin-panel.png) |
+* **Giriş Ekranı**
+  
+  <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/a05d9e9e-76a6-43c2-99d1-e1343100a591" />
 
-| Öğrenci Şikayet Ekranı | Yemek Menüsü |
-| :---: | :---: |
-| ![Şikayet Ekranı](Screenshots/complaint-screen.png) | ![Yemek Menüsü](Screenshots/menu-screen.png) |
+* **Admin Paneli**
+  
+<img width="1920" height="1080" alt="Ekran görüntüsü 2025-12-09 010120" src="https://github.com/user-attachments/assets/e164bb44-ba5f-4638-92c0-d990837a972c" />
+
+
+* **Öğrenci Şikayet Ekranı** 
+
+<img width="1920" height="1080" alt="Ekran görüntüsü 2025-12-09 005856" src="https://github.com/user-attachments/assets/7e76b424-2025-460f-8c94-26a2f08fc9e0" />
+
+* **Menü**
+<img width="1920" height="1080" alt="Ekran görüntüsü 2025-12-09 002733" src="https://github.com/user-attachments/assets/61e6d9cb-81ba-4412-bddd-e72c0aee9830" />
 
 ---
 
