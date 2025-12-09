@@ -82,8 +82,8 @@ Before running the project locally, ensure you have the following installed:
 
 1.  **Clone the Project:**
     ```bash
-    git clone [https://github.com/elifgularslan/DormitoryManagmentSystem.git](https://github.com/elifgularslan/DormitoryManagmentSystem.git)
-    cd DormitoryManagmentSystem
+    git clone [https://github.com/vildankaraca/wp-project.git](https://github.com/vildankaraca/wp-project.git)
+    cd DormitoryComplaintSystem
     ```
 
 2.  **Restore Packages:**
@@ -232,11 +232,11 @@ Projeyi yerel ortamınızda çalıştırmadan önce aşağıdakilerin kurulu old
 
 1.  **Projeyi Klonlayın:**
     ```bash
-    git clone [https://github.com/elifgularslan/DormitoryManagmentSystem.git](https://github.com/elifgularslan/DormitoryManagmentSystem.git)
-    cd DormitoryManagmentSystem
+    git clone [https://github.com/vildankaraca/wp-project.git](https://github.com/vildankaraca/wp-project.git)
+    cd DormitoryComplaintSystem
     ```
      ```bash
-    cd DormitoryManagmentSystem
+    cd DormitoryComplaintSystem
     ```
 
 
