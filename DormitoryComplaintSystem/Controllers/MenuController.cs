@@ -20,13 +20,15 @@ namespace DormitoryComplaintSystem.Controllers
         public IActionResult Index()
         {
             var finalMenuList = new List<Menu>(); 
-            var baslangicTarihi = DateTime.Today; 
+            var startDate = DateTime.Today; 
 
+            // Get menus for the next 14 days
             var dbMenus = _context.Menus
-                .Where(m => m.Date >= baslangicTarihi && m.Date < baslangicTarihi.AddDays(14))
+                .Where(m => m.Date >= startDate && m.Date < startDate.AddDays(14))
                 .ToList();
 
-            var menuHafta1 = new Dictionary<DayOfWeek, (string Soup, string Main, string Side, string Dessert)>
+            // Week 1 defaults
+            var menuWeek1 = new Dictionary<DayOfWeek, (string Soup, string Main, string Side, string Dessert)>
             {
                 { DayOfWeek.Monday,    ("Mercimek Çorbası", "Izgara Tavuk", "Pirinç Pilavı", "Sütlaç") },
                 { DayOfWeek.Tuesday,   ("Domates Çorbası", "İzmir Köfte", "Makarna", "Baklava") },
@@ -37,7 +39,8 @@ namespace DormitoryComplaintSystem.Controllers
                 { DayOfWeek.Sunday,    ("Sebze Çorbası", "Karışık Izgara", "Ayran", "Dondurma") }
             };
 
-            var menuHafta2 = new Dictionary<DayOfWeek, (string Soup, string Main, string Side, string Dessert)>
+            // Week 2 defaults
+            var menuWeek2 = new Dictionary<DayOfWeek, (string Soup, string Main, string Side, string Dessert)>
             {
                 { DayOfWeek.Monday,    ("Yayla Çorbası", "Et Sote", "Püre", "Profiterol") },
                 { DayOfWeek.Tuesday,   ("Tarhana", "Şnitzel", "Spagetti", "Brownie") },
@@ -48,35 +51,37 @@ namespace DormitoryComplaintSystem.Controllers
                 { DayOfWeek.Sunday,    ("Mısır Çorbası", "Biftek", "Fırın Patates", "Cheesecake") }
             };
 
-            DateTime referansTarih = new DateTime(2024, 1, 1);
+            DateTime referenceDate = new DateTime(2024, 1, 1);
 
             for (int i = 0; i < 14; i++)
             {
-                var suankiTarih = baslangicTarihi.AddDays(i);
+                var currentDate = startDate.AddDays(i);
+                var dbRecord = dbMenus.FirstOrDefault(m => m.Date.Date == currentDate.Date);
 
-                var dbKaydi = dbMenus.FirstOrDefault(m => m.Date.Date == suankiTarih.Date);
-
-                if (dbKaydi != null)
+                if (dbRecord != null)
                 {
-                    finalMenuList.Add(dbKaydi);
+                    // Use DB record if exists
+                    finalMenuList.Add(dbRecord);
                 }
                 else
                 {
-                    TimeSpan fark = suankiTarih - referansTarih;
-                    int gecenHaftaSayisi = (int)(fark.TotalDays / 7);
-                    var aktifListe = (gecenHaftaSayisi % 2 == 0) ? menuHafta1 : menuHafta2;
+                    // Calculate rotation based on reference date
+                    TimeSpan diff = currentDate - referenceDate;
+                    int elapsedWeeks = (int)(diff.TotalDays / 7);
+                    
+                    var activeList = (elapsedWeeks % 2 == 0) ? menuWeek1 : menuWeek2;
 
-                    if (aktifListe.ContainsKey(suankiTarih.DayOfWeek))
+                    if (activeList.ContainsKey(currentDate.DayOfWeek))
                     {
-                        var secilenMenu = aktifListe[suankiTarih.DayOfWeek];
+                        var selectedMenu = activeList[currentDate.DayOfWeek];
                         finalMenuList.Add(new Menu
                         {
-                            Id = 0,
-                            Date = suankiTarih,
-                            Soup = secilenMenu.Soup,
-                            MainDish = secilenMenu.Main,
-                            SideDish = secilenMenu.Side,
-                            Dessert = secilenMenu.Dessert
+                            Id = 0, // 0 indicates generated, not from DB
+                            Date = currentDate,
+                            Soup = selectedMenu.Soup,
+                            MainDish = selectedMenu.Main,
+                            SideDish = selectedMenu.Side,
+                            Dessert = selectedMenu.Dessert
                         });
                     }
                 }
@@ -88,6 +93,7 @@ namespace DormitoryComplaintSystem.Controllers
         [Authorize] 
         public IActionResult Create(DateTime? date)
         {
+            // Auto-fill date if clicked from calendar
             if (date.HasValue)
             {
                 return View(new Menu { Date = date.Value });
@@ -99,6 +105,11 @@ namespace DormitoryComplaintSystem.Controllers
         [Authorize]
         public IActionResult Create(Menu menu)
         {
+            if (menu.Date.Date < DateTime.Today)
+            {
+                return Content("<script>alert('You cannot add to an old menu!'); window.location.href='/Menu/Index';</script>", "text/html");
+            }
+            // Overwrite if exists
             var existingMenu = _context.Menus.FirstOrDefault(m => m.Date == menu.Date);
             if(existingMenu != null)
             {
@@ -108,6 +119,32 @@ namespace DormitoryComplaintSystem.Controllers
             if (ModelState.IsValid)
             {
                 _context.Menus.Add(menu);
+                _context.SaveChanges();
+                return Content("<script>alert('Successfully saved to the database!'); window.location.href='/Menu/Index';</script>", "text/html");
+            }
+            return View(menu);
+        }
+
+        // GET: Open the edit page with existing data
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var menu = _context.Menus.Find(id);
+            if (menu == null)
+            {
+                return NotFound();
+            }
+            return View(menu);
+        }
+
+        // POST: Save changes
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(Menu menu)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Menus.Update(menu); // Updates the record based on ID
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -125,6 +162,6 @@ namespace DormitoryComplaintSystem.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
-        }
-    }
+        }
+    }
 }
