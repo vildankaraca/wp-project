@@ -12,26 +12,31 @@
                     <div class="mb-3">
                         <label class="form-label">Date</label>
                         <input asp-for="Date" type="date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Soup</label>
                         <input asp-for="Soup" class="form-control" placeholder="Ex: Mercimek Çorbası" />
+                        <span asp-validation-for="Soup" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Main Dish</label>
                         <input asp-for="MainDish" class="form-control" placeholder="Ex: Karnıyarık" />
+                        <span asp-validation-for="MainDish" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Side Dish</label>
-                        <input asp-for="SideDish" class="form-control" placeholder="Örn: Pirinç Pilavı" />
+                        <input asp-for="SideDish" class="form-control" placeholder="Ex: Pirinç Pilavı" />
+                        <span asp-validation-for="SideDish" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Desert / Fruit</label>
-                        <input asp-for="Dessert" class="form-control" placeholder="Örn: Kemalpaşa" />
+                        <label class="form-label">Dessert / Fruit</label>
+                        <input asp-for="Dessert" class="form-control" placeholder="Ex: Kemalpaşa" />
+                        <span asp-validation-for="Dessert" class="text-danger"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Save</button>
@@ -40,3 +45,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
